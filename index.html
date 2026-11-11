@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Surya Doddipatla</title>
-<meta name="description" content="Surya Doddipatla, machine learning engineer. Computer vision, LLM tools that cite their sources, and the cloud services they run on.">
-<meta property="og:title" content="Surya Doddipatla, machine learning engineer">
-<meta property="og:description" content="Computer vision, LLM tools that cite their sources, and the cloud services they run on.">
+<meta name="description" content="Surya Doddipatla, Data Scientist working across AI, machine learning and data: LLM tools, computer vision, data pipelines and the cloud services they run on.">
+<meta property="og:title" content="Surya Doddipatla, Data Scientist (AI, ML and data)">
+<meta property="og:description" content="LLM tools, computer vision, data pipelines and the cloud services they run on. Live demos and open-source projects.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ctext x='32' y='43' font-family='Arial' font-weight='700' font-size='30' text-anchor='middle' fill='%23ffd23f'%3ESD%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -514,6 +514,23 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
 .chat-foot{font:11px "JetBrains Mono",monospace;color:var(--muted);padding:0 14px 10px}
 @media (max-width:600px){.chat{left:8px;right:8px;width:auto;bottom:76px;height:min(72vh,560px)}.ask-fab{right:76px;bottom:16px;height:48px;padding:0 14px}.ask-nudge{right:16px;bottom:74px}}
 
+
+/* mobile fixes */
+.cta-grid>*{min-width:0}
+.cta .links{flex-wrap:wrap;row-gap:6px}
+.cta .links a{overflow-wrap:anywhere}
+#json{overflow-wrap:anywhere}
+@media (max-width:600px){
+  .cta{padding:24px 18px;border-radius:18px}
+  .cta h2{font-size:30px}
+  .topics{gap:6px}.pill{padding:6px 11px}
+  .form-row .btn{flex:1;justify-content:center}
+  #pp{height:300px}
+}
+
+.eyebrow{white-space:nowrap;max-width:100%}
+@media (max-width:480px){.eb-loc{display:none}}
+
 /* reveal */
 .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
 .js .reveal.in{opacity:1;transform:none}
@@ -555,7 +572,7 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
   <div class="wrap">
     <header class="hero">
       <div>
-        <div class="eyebrow mono">Machine learning engineer &middot; DC-Baltimore</div>
+        <div class="eyebrow mono">Data Scientist &middot; AI and ML<span class="eb-loc"> &middot; DC-Baltimore</span></div>
         <div class="gen mono" id="gen" aria-hidden="true"></div>
         <h1>Surya Doddipatla</h1>
         <p class="typed" aria-live="polite">I build <span class="tw" id="tw">computer vision that reads floor plans</span><span class="caret" aria-hidden="true"></span></p>
@@ -574,7 +591,7 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
             LinkedIn
           </a>
         </div>
-        <div class="status"><span class="dot"></span>Looking for ML engineer, AI engineer and applied AI roles. Open to relocation.</div>
+        <div class="status"><span class="dot"></span>Open to AI engineer, ML engineer, data scientist and data engineering roles. Open to relocation.</div>
         <button class="replay mono" id="replayIntro" type="button">&#8635; regenerate</button>
       </div>
 
@@ -926,7 +943,7 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
         <span class="hobby">&#9992;&#65039; Travel</span>
         <span class="hobby">&#128663; Long drives</span>
         <span class="hobby">&#9749; Coffee</span>
-        <span class="hobby">&#128008; Cats <span class="mono" style="color:var(--muted);font-size:12px">(leave your mouse still for a few seconds)</span></span>
+        <span class="hobby">&#128008; Cats <span class="mono" style="color:var(--muted);font-size:12px">(stay idle for a few seconds)</span></span>
       </div>
     </div>
   </section>
@@ -1336,7 +1353,7 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
     var box=document.getElementById('term'),out=document.getElementById('tOut'),inp=document.getElementById('tIn'),btn=document.getElementById('termBtn'),hist=[],hi=0;
     var C={
       help:'commands: ask <question>, whoami, projects, skills, experience, hobbies, contact, resume, github, linkedin, sketch, systems, regen, theme, clear, exit',
-      whoami:'Surya Doddipatla. Machine learning engineer in the Washington DC-Baltimore area.\nComputer vision, LLM tools, and the cloud services they run on.',
+      whoami:'Surya Doddipatla. Data Scientist in the Washington DC-Baltimore area, working across AI, ML and data.\nLLM tools, computer vision, data pipelines, and the cloud services they run on.',
       projects:'floor plans to drawings   computer vision, Dream Forge\nAI features               speech and documents, tied to sources\ncited-extract             PDF facts with a checkable quote and page\naviation severity         UMBC capstone, Bayesian NNs and LIME\n\nopen source: whisper-brief, resilient-jobs, llm-eval-harness, lazy-model-server,\npayload-diet, site-hazard-lookup, resumable-recorder, dual-validators, fair-shift-scheduler\n(type "github" to open them)',
       skills:'python  pytorch  opencv  segformer  whisper  llm tool calling  rag\nreact  next.js  flask  fastapi  sql  azure  docker  github actions\nthree.js  react three fiber  drei  gis\npytest  vitest  playwright',
       hobbies:'table tennis (rally with me in the Off the clock section), One Piece, travel, long drives, coffee,\nand cats (leave your mouse still for a few seconds)',
@@ -1441,7 +1458,7 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
     var cv=document.getElementById('pp');if(!cv)return;
     var ctx=cv.getContext('2d'),sc=document.getElementById('ppScore'),W=0,H=0,G=0,ball=null,Lp={y:0},Rp={y:0},human=false,demo=true,you=0,surya=0,lastMove=0,rally=0,best=0,running=false,timer=0,pops=[],last=0,wait=0,vis=false,T={};
     var words=['ping','pong','topspin','nice','smash!','backhand','loop','again!'];
-    function geom(){T.top=H*.64;T.l=W*.15;T.r=W*.85;T.net=W/2;T.netH=H*.085;T.lx=T.l-W*.055;T.rx=T.r+W*.055;T.blade=Math.max(15,H*.07);T.br=Math.max(4.5,H*.022);G=H*2.4}
+    function geom(){T.top=H*.64;T.l=W*.15;T.r=W*.85;T.net=W/2;T.netH=H*.085;T.lx=T.l-W*.055;T.rx=T.r+W*.055;T.blade=Math.max(W<500?24:15,H*(W<500?.085:.07));T.br=Math.max(4.5,H*.022);G=H*2.4}
     function size(){var d=window.devicePixelRatio||1,r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=Math.round(W*d);cv.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0);geom()}
     function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
     function pop(x,y,t){pops.push({x:x,y:y,t:t,a:1})}
@@ -1494,7 +1511,7 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
         if(ball&&!ball.dead){moveAI(Lp,T.lx,ball.owner==='R',dt,ball.owner==='R'?ball.err:0,ball.owner==='R'?ball.react:0,demo?2.2:1.75);if(demo)moveAI(Rp,T.rx,ball.owner==='L',dt,0)}
       }
       pops.forEach(function(q){q.y-=20*dt;q.a-=dt*.8});pops=pops.filter(function(q){return q.a>0});
-      sc.textContent=demo?'demo \u00b7 move over the table to play':'you '+you+' : '+surya+' Surya \u00b7 rally '+rally+' \u00b7 best '+best;
+      sc.textContent=demo?(W<500?'demo \u00b7 drag to play':'demo \u00b7 move over the table to play'):'you '+you+' : '+surya+' Surya \u00b7 rally '+rally+' \u00b7 best '+best;
       draw();
       if(vis&&running)timer=setTimeout(step,16);
     }
@@ -1522,7 +1539,8 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
       if(ball){var onT=ball.x>T.l&&ball.x<T.r,sy=onT?T.top+1:H-24,hgt=Math.max(0,sy-ball.y),sw=T.br*clamp(1.6-hgt/(H*.6),.5,1.6);ctx.fillStyle='rgba(0,0,0,'+clamp(.35-hgt/(H*2),.08,.35)+')';ctx.beginPath();ctx.ellipse(ball.x,sy,sw,sw*.35,0,0,7);ctx.fill()}
       paddle(T.lx,Lp.y,'#1b1b1b',-1,'Surya');paddle(T.rx,Rp.y,'#d6333b',1,'you');
       if(ball){ctx.fillStyle='#ff8c1a';ctx.beginPath();ctx.arc(ball.x,ball.y,T.br,0,7);ctx.fill();ctx.fillStyle='rgba(255,255,255,.6)';ctx.beginPath();ctx.arc(ball.x-T.br*.35,ball.y-T.br*.35,T.br*.35,0,7);ctx.fill()}
-      if(demo){ctx.font='500 12px "JetBrains Mono", monospace';ctx.textAlign='center';ctx.fillStyle=css.getPropertyValue('--muted');ctx.fillText('move your mouse or finger over the table to play',W/2,H*.12)}
+      if(demo){ctx.font='500 12px "JetBrains Mono", monospace';ctx.textAlign='center';ctx.fillStyle=css.getPropertyValue('--muted');ctx.fillText(W<500?'drag on the table to play':'move your mouse or finger over the table to play',W/2,H*.1);
+        var pulse=.55+.45*Math.sin(performance.now()/260);ctx.globalAlpha=pulse;ctx.fillStyle=css.getPropertyValue('--accent');ctx.font='600 12px "JetBrains Mono", monospace';ctx.fillText('drag \u2195',T.rx,Rp.y-T.blade-14);ctx.globalAlpha=1}
       ctx.font='600 13px "JetBrains Mono", monospace';ctx.textAlign='center';
       pops.forEach(function(q){ctx.globalAlpha=Math.max(0,q.a);ctx.fillStyle=css.getPropertyValue('--accent');ctx.fillText(q.t,q.x,q.y)});ctx.globalAlpha=1;
     }
@@ -1540,7 +1558,7 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
 
   /* idle pointer: a cat stalks and pounces on a laser dot */
   (function(){
-    if(reduce||!fine)return;
+    if(reduce)return;
     var layer=document.createElement('div');layer.className='catlayer';layer.setAttribute('aria-hidden','true');
     layer.innerHTML='<div class="cat"><svg viewBox="0 0 110 76" width="96" height="66"><g class="flip">'+
       '<path class="tail" d="M24 40 C8 36 4 22 13 11"/>'+
@@ -1603,6 +1621,13 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
       idle=setTimeout(tryStart,3500);
     },{passive:true});
     document.documentElement.addEventListener('mouseleave',function(){still=false;clearTimeout(idle);stop()});
+    if(!fine){ // touch screens: the cat visits after 5 s with no touches or scrolling
+      var tapX=null;
+      function touchIdle(){still=false;clearTimeout(idle);if(active)stop();idle=setTimeout(function(){mx=clamp(tapX==null?innerWidth*.6:tapX,90,innerWidth-90);my=innerHeight-150;still=true;tryStart()},5000)}
+      addEventListener('touchstart',function(e){var t=e.touches&&e.touches[0];if(t)tapX=t.clientX;touchIdle()},{passive:true});
+      addEventListener('scroll',touchIdle,{passive:true});
+      touchIdle();
+    }
     addEventListener('scroll',function(){if(active)stop()},{passive:true});
     addEventListener('pointerdown',function(){clearTimeout(idle);if(active)stop()},{passive:true});
   })();
@@ -1670,7 +1695,7 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
       ['Open source','site-hazard-lookup returns public seismic, soil and flood data for a US address, with sources.','github open source project gis'],
       ['Projects','My UMBC capstone, with a team of three, predicted aviation accident severity with Bayesian neural networks and explained it with LIME.','capstone project team bayesian explainability'],
       ['About','I\'m based in the Washington DC-Baltimore area and open to relocation.','location based where live relocate relocation remote area'],
-      ['About','I\'m looking for ML engineer, AI engineer and applied AI roles.','looking roles job search open hiring available'],
+      ['About','I\'m open to AI engineer, ML engineer, data scientist and data engineering roles.','looking roles job search open hiring available data analytics analyst'],
       ['Contact','The fastest way to reach me is email: suryatejad8@gmail.com.','contact email reach hire talk'],
       ['Off the clock','Outside work: table tennis, One Piece, travel, long drives, coffee and cats.','hobbies hobby fun interests free time personal'],
     ];
