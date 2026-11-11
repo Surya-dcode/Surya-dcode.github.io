@@ -528,6 +528,9 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
   #pp{height:300px}
 }
 
+.eyebrow{white-space:nowrap;max-width:100%}
+@media (max-width:480px){.eb-loc{display:none}}
+
 /* reveal */
 .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
 .js .reveal.in{opacity:1;transform:none}
@@ -569,7 +572,7 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
   <div class="wrap">
     <header class="hero">
       <div>
-        <div class="eyebrow mono">Data Scientist &middot; AI and ML &middot; DC-Baltimore</div>
+        <div class="eyebrow mono">Data Scientist &middot; AI and ML<span class="eb-loc"> &middot; DC-Baltimore</span></div>
         <div class="gen mono" id="gen" aria-hidden="true"></div>
         <h1>Surya Doddipatla</h1>
         <p class="typed" aria-live="polite">I build <span class="tw" id="tw">computer vision that reads floor plans</span><span class="caret" aria-hidden="true"></span></p>
