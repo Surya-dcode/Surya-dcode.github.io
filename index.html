@@ -241,6 +241,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .cta input[type=text]:focus,.cta textarea:focus{border-color:var(--cta-ink);background:color-mix(in srgb,var(--cta-ink) 12%,transparent)}
 .cta ::placeholder{color:var(--cta-ink);opacity:.45}
 .cta input.bad{border-color:#c0262d}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .topics{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px}
 .topics legend{font-size:13px;font-weight:600;margin-bottom:8px;padding:0}
 .topics label{position:relative;cursor:pointer}
@@ -957,7 +958,9 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
             <p>Leave your name and a note. It goes straight to my inbox.</p>
             <form id="noteForm" novalidate>
               <label class="f"><span class="lt">Your name <em>(required)</em></span><input type="text" id="fName" autocomplete="name" placeholder="Jane Smith" required></label>
+              <label class="f"><span class="lt">Your email <em>(required, so I can reply)</em></span><input type="text" inputmode="email" id="fEm" autocomplete="email" placeholder="jane@company.com" required></label>
               <label class="f"><span class="lt">Company <em>(optional)</em></span><input type="text" id="fCo" autocomplete="organization" placeholder="Where you work"></label>
+              <label class="hp" aria-hidden="true">Leave this empty<input type="text" id="fHp" tabindex="-1" autocomplete="off"></label>
               <fieldset class="topics">
                 <legend>What's it about?</legend>
                 <label><input type="radio" name="topic" value="A role" checked><span class="pill">A role</span></label>
@@ -1128,24 +1131,40 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
     if(navigator.clipboard)navigator.clipboard.writeText('suryatejad8@gmail.com').then(done,done);else done();
   });
 
-  /* contact form with live JSON */
-  var fN=document.getElementById('fName'),fC=document.getElementById('fCo'),fM=document.getElementById('fMsg'),out=document.getElementById('json'),msg=document.getElementById('formMsg'),form=document.getElementById('noteForm');
+  /* contact form with live JSON; notes go to Surya's Google Sheet + Gmail via his Apps Script */
+  var NOTE_ENDPOINT='';  // Apps Script web app URL (https://script.google.com/macros/s/.../exec)
+  var fN=document.getElementById('fName'),fE=document.getElementById('fEm'),fC=document.getElementById('fCo'),fM=document.getElementById('fMsg'),fH=document.getElementById('fHp'),out=document.getElementById('json'),msg=document.getElementById('formMsg'),form=document.getElementById('noteForm');
   function esc(x){return x.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function topic(){var r=form.querySelector('input[name=topic]:checked');return r?r.value:''}
   function v(x){x=(x||'').trim();return x?'<span class="js-s">"'+esc(x)+'"</span>':'<span class="js-n">"not stated"</span>'}
   function k(x){return '<span class="js-k">"'+x+'"</span>: '}
-  function render(){out.innerHTML='{\n  '+k('name')+v(fN.value)+',\n  '+k('company')+v(fC.value)+',\n  '+k('about')+v(topic())+',\n  '+k('note')+v(fM.value)+',\n  '+k('to')+'<span class="js-s">"Surya"</span>\n}'}
-  [fN,fC,fM].forEach(function(el){el.addEventListener('input',function(){el.classList.remove('bad');render()})});
+  function render(){out.innerHTML='{\n  '+k('name')+v(fN.value)+',\n  '+k('email')+v(fE.value)+',\n  '+k('company')+v(fC.value)+',\n  '+k('about')+v(topic())+',\n  '+k('note')+v(fM.value)+',\n  '+k('to')+'<span class="js-s">"Surya"</span>\n}'}
+  [fN,fE,fC,fM].forEach(function(el){el.addEventListener('input',function(){el.classList.remove('bad');render()})});
   form.querySelectorAll('input[name=topic]').forEach(function(r){r.addEventListener('change',render)});
   render();
+  var sending=false, sendBtn=form.querySelector('button[type=submit]');
+  function mailtoFallback(n,em,c,m,t){
+    var subject=t+': hello from '+n+(c?' at '+c:'');
+    var body=(m||'(no note)')+'\n\n'+n+'\n'+em+(c?'\n'+c:'');
+    location.href='mailto:suryatejad8@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  }
   form.addEventListener('submit',function(e){
     e.preventDefault();
-    var n=fN.value.trim(),c=fC.value.trim(),m=fM.value.trim(),t=topic();
+    if(sending)return;
+    var n=fN.value.trim(),em=fE.value.trim(),c=fC.value.trim(),m=fM.value.trim(),t=topic();
     if(!n){fN.classList.add('bad');fN.focus();msg.textContent='Please add your name so I know who to reply to.';return}
-    var subject=t+': hello from '+n+(c?' at '+c:'');
-    var body=(m||'(no note)')+'\n\n'+n+(c?'\n'+c:'');
-    location.href='mailto:suryatejad8@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-    msg.textContent='Your email app should open with the note ready to send. If it doesn\'t, write to suryatejad8@gmail.com.';
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){fE.classList.add('bad');fE.focus();msg.textContent='Please add an email I can reply to.';return}
+    if(!NOTE_ENDPOINT){mailtoFallback(n,em,c,m,t);msg.textContent='Your email app should open with the note ready to send. If it doesn\'t, write to suryatejad8@gmail.com.';return}
+    sending=true;sendBtn.disabled=true;msg.textContent='Sending...';
+    // text/plain body keeps this a "simple" request (no CORS preflight), which Apps Script accepts
+    fetch(NOTE_ENDPOINT,{method:'POST',body:JSON.stringify({name:n,email:em,company:c,topic:t,note:m,website:fH.value,page:location.href})})
+      .then(function(r){return r.json()})
+      .then(function(d){
+        if(d&&d.ok){msg.textContent='Sent. Thanks, '+n.split(' ')[0]+'. I\'ll reply to '+em+'.';form.reset();render()}
+        else{msg.textContent=(d&&d.error)||'That didn\'t go through. Please email suryatejad8@gmail.com.'}
+      })
+      .catch(function(){msg.textContent='That didn\'t go through. Please email suryatejad8@gmail.com.'})
+      .finally(function(){sending=false;sendBtn.disabled=false});
   });
 
   /* sketch to clean walls */
