@@ -1132,7 +1132,7 @@ html.cc-onaccent .cur-dot{background:var(--accent-ink)}
   });
 
   /* contact form with live JSON; notes go to Surya's Google Sheet + Gmail via his Apps Script */
-  var NOTE_ENDPOINT='';  // Apps Script web app URL (https://script.google.com/macros/s/.../exec)
+  var NOTE_ENDPOINT='https://script.google.com/macros/s/AKfycbyhdEgok4czEyaXX6hUzcmjJJUsN0s0mYQlejcmFFMZlCH19IqQfxbA5zx-3uy8EKca/exec';  // Apps Script web app URL (https://script.google.com/macros/s/.../exec)
   var fN=document.getElementById('fName'),fE=document.getElementById('fEm'),fC=document.getElementById('fCo'),fM=document.getElementById('fMsg'),fH=document.getElementById('fHp'),out=document.getElementById('json'),msg=document.getElementById('formMsg'),form=document.getElementById('noteForm');
   function esc(x){return x.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function topic(){var r=form.querySelector('input[name=topic]:checked');return r?r.value:''}
